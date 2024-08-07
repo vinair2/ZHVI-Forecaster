@@ -5,7 +5,7 @@ from statsmodels.tsa.arima.model import ARIMA
 import plotly.graph_objects as go
 
 # Caching Function for zd and zd_melt df
-@st.cache_data
+# @st.cache_data -- Causes error with aws ec2
 def load_data():
     zd = pd.read_csv("data/zhvi_bdrmcnt_labeled.csv")
     zd_melt = pd.melt(
@@ -275,8 +275,7 @@ def main():
     
     # Plot
     if zip_code and selected_bedroom_count:
-        with st.spinner('Generating plot...'):
-            plot(zd, zd_melt, zip_code, selected_bedroom_count, zip_city_state_str)
+        plot(zd, zd_melt, zip_code, selected_bedroom_count, zip_city_state_str)
     else:
         st.write("Please make selections to see the plot.")
 
